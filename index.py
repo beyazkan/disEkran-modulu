@@ -71,7 +71,8 @@ def Graphic_Screen():
     if not glfw.init():
         return
     #TODO: Pencere oluşturma kontrolünün sağlanması gerekiyor.
-    window = glfw.create_window(1366, 768, "Dış Ekran", None, None)
+    monitor = glfw.get_primary_monitor()
+    window = glfw.create_window(1920, 1080, "Dış Ekran", monitor, None)
 
     if not window:
         glfw.terminate()
