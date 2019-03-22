@@ -8,6 +8,7 @@ from OpenGL.GL import *
 import OpenGL.GL.shaders
 import numpy
 import pyrr
+import freetype
 
 time_value = 0
 HOST = '127.0.0.1'
@@ -110,7 +111,10 @@ def Graphic_Screen():
         glEnd()
 
         #Üst Açıklama
-        glColor3f(1, 0, 0)
+        if time_value % 2 == 0:
+            glColor3f(1, 1, 1)
+        else:
+            glColor3f(0.5, 0.5, 0.5)
         glBegin(GL_QUADS)
         glVertex3f(-0.7, 0.0, 0.0)
         glVertex3f(1, 0.0, 0.0)
@@ -139,7 +143,10 @@ def Graphic_Screen():
         glEnd()
 
         #Alt Açıklama
-        glColor3f(1, 0, 0)
+        if time_value % 2 == 0:
+            glColor3f(1, 1, 1)
+        else:
+            glColor3f(0.5, 0.5, 0.5)
         glBegin(GL_QUADS)
         glVertex3f(-0.7, -1.0, 0.0)
         glVertex3f(1, -1.0, 0.0)
