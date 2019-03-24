@@ -16,6 +16,11 @@ PORT = 6000
 
 hekim = {}
 
+def hex_to_rgb(hex):
+    hex = hex.lstrip('#')
+    color = tuple(int(hex[i:i+2], 16) for i in (0, 2 ,4))
+    glColor3f((1.0/255.0)*color[0], (1.0/255.0)*color[1], (1.0/255.0)*color[2])
+
 def timer():
     global time_value
     while True:
@@ -73,7 +78,7 @@ def Graphic_Screen():
         return
     #TODO: Pencere oluşturma kontrolünün sağlanması gerekiyor.
     monitor = glfw.get_primary_monitor()
-    window = glfw.create_window(1280, 768, "Dış Ekran", monitor, None)
+    window = glfw.create_window(1920, 1080, "Dış Ekran", monitor, None)
 
     if not window:
         glfw.terminate()
@@ -92,7 +97,8 @@ def Graphic_Screen():
 
         #Üst Panel
         #         R  G  B
-        glColor3f(0, 0, 1)
+        #glColor3f((1.0/255.0)*ustRenk[0], (1.0/255.0)*ustRenk[1], (1.0/255.0)*ustRenk[2])
+        hex_to_rgb('#283593')
         glBegin(GL_QUADS)
         #            X    Y    Z
         glVertex3f(-1.0, 0.7, 0.0)
@@ -102,7 +108,7 @@ def Graphic_Screen():
         glEnd()
 
         #Üst Sol Panel
-        glColor3f(0, 0, 0.5)
+        hex_to_rgb('#00897b')
         glBegin(GL_QUADS)
         glVertex3f(-1.0, 0.0, 0.0)
         glVertex3f(-0.7, 0.0, 0.0)
