@@ -6,9 +6,9 @@ hasta = []
 
 def server():
     global hasta
-    socketServer = Socket_Server
-    socketServer.Socket_Server.start()
-    hasta = socketServer.Socket_Server.get_dizi()
+    socketServer = Socket_Server()
+    socketServer.start()
+    hasta = socketServer.get_dizi()
 
 server_thread = Thread(target= server)
 server_thread.start()

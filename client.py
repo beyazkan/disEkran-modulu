@@ -12,6 +12,6 @@ print ("Veri sunucuya basarili bir sekilde gonderildi.")
 #print ("Sunucudan Gelen Mesaj: ", sunucudanGelenMesaj)
 
 print ("Sunucudan onay mesaji da alindigina gore; istemci tarafinda da baglanti koparilabilir")
-istemciSoketi.close()
+#istemciSoketi.close()
 
 # Sonuc

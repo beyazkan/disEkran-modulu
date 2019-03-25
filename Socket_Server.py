@@ -11,7 +11,7 @@ class Socket_Server():
         print("Socket Server Sınıfı Yüklendi.")
 
     def start(self):
-        while not done:
+        while not self.done:
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
                 sock.bind((conf.Host, conf.Port))
                 sock.listen()
@@ -22,15 +22,15 @@ class Socket_Server():
                     while True:
                         data = connect.recv(1024)
                         self.paket = data.decode('utf-8')
-                        self.dizi = str(stringifade).split("*")
-                        sound_vari = sound.Sound(dizi[1])
+                        self.dizi = str(self.paket).split("*")
+                        sound_vari = sound.Sound(self.dizi[1])
                         break;
 
     def stop(self):
         pass
         
     def get_dizi(self):
-        return [dizi[0].strip(), dizi[1], dizi[2], dizi[3]]
+        return [self.dizi[0].strip(), self.dizi[1], self.dizi[2], self.dizi[3]]
 
     
 
