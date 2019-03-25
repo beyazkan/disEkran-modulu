@@ -9,6 +9,7 @@ import OpenGL.GL.shaders
 import numpy
 import pyrr
 import freetype
+import pygame
 
 time_value = 0
 HOST = '127.0.0.1'
@@ -16,20 +17,30 @@ PORT = 6000
 
 hekim = {}
 
+done = False
+
 def hex_to_rgb(hex):
     hex = hex.lstrip('#')
     color = tuple(int(hex[i:i+2], 16) for i in (0, 2 ,4))
-    glColor3f((1.0/255.0)*color[0], (1.0/255.0)*color[1], (1.0/255.0)*color[2])
+    return color
+    #glColor3f((1.0/255.0)*color[0], (1.0/255.0)*color[1], (1.0/255.0)*color[2])
 
 def timer():
-    global time_value
+    global time_value, done
     while True:
+        if done:
+            print("Timer durdu")
+            break
         time_value += 1
         time.sleep(1)
-        
+
 def server_listening():
+    global done
     print("Dış Ekran Sunucusu")
     while True:
+        if done:
+            print("server durdu")
+            break
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.bind((HOST, PORT))
             s.listen()
@@ -78,7 +89,7 @@ def Graphic_Screen():
         return
     #TODO: Pencere oluşturma kontrolünün sağlanması gerekiyor.
     monitor = glfw.get_primary_monitor()
-    window = glfw.create_window(1920, 1080, "Dış Ekran", monitor, None)
+    window = glfw.create_window(1920, 1080, "Dış Ekran", None, None)
 
     if not window:
         glfw.terminate()
@@ -108,7 +119,7 @@ def Graphic_Screen():
         glEnd()
 
         #Üst Sol Panel
-        hex_to_rgb('#00897b')
+        hex_to_rgb('#1976D2')
         glBegin(GL_QUADS)
         glVertex3f(-1.0, 0.0, 0.0)
         glVertex3f(-0.7, 0.0, 0.0)
@@ -118,9 +129,9 @@ def Graphic_Screen():
 
         #Üst Açıklama
         if time_value % 2 == 0:
-            glColor3f(1, 1, 1)
+            hex_to_rgb('#BDBDBD')
         else:
-            glColor3f(0.5, 0.5, 0.5)
+            hex_to_rgb('#FFFFFF')
         glBegin(GL_QUADS)
         glVertex3f(-0.7, 0.0, 0.0)
         glVertex3f(1, 0.0, 0.0)
@@ -130,7 +141,7 @@ def Graphic_Screen():
 
         #Alt Panel
         #         R  G  B
-        glColor3f(0, 0, 1)
+        hex_to_rgb('#283593')
         glBegin(GL_QUADS)
         #            X    Y    Z
         glVertex3f(-1.0, -0.3, 0.0)
@@ -140,7 +151,7 @@ def Graphic_Screen():
         glEnd()
 
         #Alt Sol Panel
-        glColor3f(0, 0, 0.5)
+        hex_to_rgb('#1976D2')
         glBegin(GL_QUADS)
         glVertex3f(-1.0, -1.0, 0.0)
         glVertex3f(-0.7, -1.0, 0.0)
@@ -150,9 +161,9 @@ def Graphic_Screen():
 
         #Alt Açıklama
         if time_value % 2 == 0:
-            glColor3f(1, 1, 1)
+            hex_to_rgb('#BDBDBD')
         else:
-            glColor3f(0.5, 0.5, 0.5)
+            hex_to_rgb('#FFFFFF')
         glBegin(GL_QUADS)
         glVertex3f(-0.7, -1.0, 0.0)
         glVertex3f(1, -1.0, 0.0)
@@ -164,7 +175,23 @@ def Graphic_Screen():
 
     glfw.terminate()
 
-graphic_render = Thread(target= Graphic_Screen)
+def Pygame_Screen():
+    global done
+    pygame.init()
+    screen = pygame.display.set_mode((800,600))
+
+    while not done:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                done = True
+
+        pygame.draw.rect(screen, hex_to_rgb('#1976D2'), pygame.Rect(0, 0, 800, 100))
+        pygame.draw.rect(screen, hex_to_rgb('#00BCD4'), pygame.Rect(0, 100, 180, 140))
+        pygame.draw.rect(screen, hex_to_rgb('#FFFFFF'), pygame.Rect(180, 100, 620, 140))
+        pygame.display.flip()
+        
+
+graphic_render = Thread(target= Pygame_Screen)
 time_thread = Thread(target= timer)
 server_thread = Thread(target= server_listening)
 
