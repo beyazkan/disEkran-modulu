@@ -57,19 +57,7 @@ def server_listening():
                     print(hasta[1]) # Hasta Adı
                     print(hasta[2]) # Hasta Sıra No
                     print(hasta[3]) # Ünvanlı Hekim Adı
-                    print(hasta[4])
-                    print(hasta[5])
-                    print(hasta[6])
-                    print(hasta[7])
-                    print(hasta[8])
-                    print(hasta[9])
-                    print(hasta[10])
-                    print(hasta[11])
-                    print(hasta[12])
-                    print(hasta[13])
-                    print(hasta[14])
-                    print(hasta[15])
-                    print(hasta[16])
+
                     tts = gTTS(hasta[1], lang='tr')
                     if not os.path.exists("./tmp"):
                         os.makedirs('./tmp/')
@@ -86,6 +74,7 @@ def server_listening():
 def Pygame_Screen():
     global done
     pygame.init()
+    clock = pygame.time.Clock()
     screen = pygame.display.set_mode((800,600))
 
     while not done:
@@ -97,6 +86,7 @@ def Pygame_Screen():
         pygame.draw.rect(screen, hex_to_rgb('#00BCD4'), pygame.Rect(0, 100, 180, 140))
         pygame.draw.rect(screen, hex_to_rgb('#FFFFFF'), pygame.Rect(180, 100, 620, 140))
         pygame.display.flip()
+        clock.tick(60)
         
 
 graphic_render = Thread(target= Pygame_Screen)
