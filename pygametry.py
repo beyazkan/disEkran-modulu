@@ -1,5 +1,6 @@
 import pygame
 import os
+from utils_kit import *
 
 
 pygame.init()
@@ -14,12 +15,7 @@ hasta_bilgi_text = upper("Hasta")
 hasta_sira_bilgi = "23"
 hasta_adi_bilgi = upper("Mustafa Sabri OĞUZ")
 
-def hex_to_rgb(hex):
-    hex = hex.lstrip('#')
-    color = tuple(int(hex[i:i+2], 16) for i in (0, 2 ,4))
-    return color
-
-font = pygame.font.Font('.\Open_Sans\OpenSans-Bold.ttf', 32)
+font = pygame.font.Font('.\\asset\Open_Sans\OpenSans-Bold.ttf', 32)
 text = font.render(baslik_yazisi, True, hex_to_rgb('#F44336'))
 hekim_text = font.render(hekim_adi, True, hex_to_rgb('#FFFFFF'))
 hasta_bilgi = font.render(hasta_bilgi_text, True, hex_to_rgb('#FFFFFF'))
