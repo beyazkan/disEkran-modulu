@@ -1,16 +1,16 @@
-import Graphic_Screen
+from Graphic_Screen import *
 from Socket_Server import *
 from threading import Thread
 
 hasta = []
 
-def server():
-    global hasta
-    socketServer = Socket_Server()
-    socketServer.start()
-    hasta = socketServer.get_dizi()
+t1 = Socket_Server()
+hasta = t1.get_hasta()
+t1.start()
 
-server_thread = Thread(target= server)
-server_thread.start()
+t2 = Graphic_Screen(hasta)
+t2.start()
 
+while True:
+    print(hasta)
 

@@ -1,5 +1,6 @@
 
 # Sabit Ayarlar
+title = "Dış Ekran Uygulaması"
 ses_ozelligi = True
 pencere_width = 1280
 pencere_height = 720

@@ -1,6 +1,7 @@
 from gtts import gTTS
 import pyglet
 import os
+import time
 
 class Sound():
     hastaAdi = ""

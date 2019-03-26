@@ -57,6 +57,18 @@ def server_listening():
                     print(hasta[1]) # Hasta Adı
                     print(hasta[2]) # Hasta Sıra No
                     print(hasta[3]) # Ünvanlı Hekim Adı
+                    print(hasta[4]) # Ünvanlı Hekim Adı
+                    print(hasta[5]) # Ünvanlı Hekim Adı
+                    print(hasta[6]) # Ünvanlı Hekim Adı
+                    print(hasta[7]) # Ünvanlı Hekim Adı
+                    print(hasta[8]) # Ünvanlı Hekim Adı
+                    print(hasta[9]) # Ünvanlı Hekim Adı
+                    print(hasta[10]) # Ünvanlı Hekim Adı
+                    print(hasta[11]) # Ünvanlı Hekim Adı
+                    print(hasta[12]) # Ünvanlı Hekim Adı
+                    print(hasta[13]) # Ünvanlı Hekim Adı
+                    print(hasta[14]) # Ünvanlı Hekim Adı
+                    print(hasta[15]) # Ünvanlı Hekim Adı
 
                     tts = gTTS(hasta[1], lang='tr')
                     if not os.path.exists("./tmp"):
