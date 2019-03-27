@@ -1,16 +1,12 @@
-import Graphic_Screen
+from Graphic_Screen import *
 from Socket_Server import *
-from threading import Thread
+from threading import *
+import queue
 
-hasta = []
+q = queue.Queue()
 
-def server():
-    global hasta
-    socketServer = Socket_Server()
-    socketServer.start()
-    hasta = socketServer.get_dizi()
+t1 = Socket_Server(q)
+t1.start()
 
-server_thread = Thread(target= server)
-server_thread.start()
-
-
+t2 = Graphic_Screen(q)
+t2.start()

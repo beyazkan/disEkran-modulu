@@ -1,35 +1,6 @@
 import pygame
 import os
-
-lcase_table = tuple(u'abcçdefgğhıijklmnoöprsştuüvyz')
-ucase_table = tuple(u'ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ')
-
-def upper(data):
-    data = data.replace('i',u'İ')
-    data = data.replace(u'ı',u'I')
-    result = ''
-    for char in data:
-        try:
-            char_index = lcase_table.index(char)
-            ucase_char = ucase_table[char_index]
-        except:
-            ucase_char = char
-        result += ucase_char
-    return result
-
-def lower(data):
-    data = data.replace(u'İ',u'i')
-    data = data.replace(u'I',u'ı')
-    result = ''
-    for char in data:
-        try:
-            char_index = ucase_table.index(char)
-            lcase_char = lcase_table[char_index]
-        except:
-            lcase_char = char
-        result += lcase_char
-    return result
-
+from utils_kit import *
 
 pygame.init()
 screen = pygame.display.set_mode((800,600))
@@ -43,12 +14,7 @@ hasta_bilgi_text = upper("Hasta")
 hasta_sira_bilgi = "23"
 hasta_adi_bilgi = upper("Mustafa Sabri OĞUZ")
 
-def hex_to_rgb(hex):
-    hex = hex.lstrip('#')
-    color = tuple(int(hex[i:i+2], 16) for i in (0, 2 ,4))
-    return color
-
-font = pygame.font.Font('.\Open_Sans\OpenSans-Bold.ttf', 32)
+font = pygame.font.Font('.\\asset\Open_Sans\OpenSans-Bold.ttf', 32)
 text = font.render(baslik_yazisi, True, hex_to_rgb('#F44336'))
 hekim_text = font.render(hekim_adi, True, hex_to_rgb('#FFFFFF'))
 hasta_bilgi = font.render(hasta_bilgi_text, True, hex_to_rgb('#FFFFFF'))

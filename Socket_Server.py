@@ -1,16 +1,19 @@
 import socket
 import config as conf
-import sound
+from threading import *
+import queue
 
-class Socket_Server():
+class Socket_Server(Thread):
     done = False
     paket = ""
     dizi = []
 
-    def __init__(self):
+    def __init__(self, q):
+        Thread.__init__(self)
+        self.q = q
         print("Socket Server Sınıfı Yüklendi.")
 
-    def start(self):
+    def run(self):
         while not self.done:
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
                 sock.bind((conf.Host, conf.Port))
@@ -20,11 +23,14 @@ class Socket_Server():
                 with connect:
                     print("Bağlanan Adres: ", address)
                     while True:
-                        data = connect.recv(1024)
+                        data = connect.recv(conf.Buffer_limit)
                         self.paket = data.decode('utf-8')
+                        if self.paket == "kapat":
+                            self.done = True
+                            break
                         self.dizi = str(self.paket).split("*")
-                        sound_vari = sound.Sound(self.dizi[1])
-                        break;
+                        self.q.put(self.get_dizi())
+                        break
 
     def stop(self):
         pass

@@ -1,19 +1,22 @@
 from gtts import gTTS
 import pyglet
-import os
+import os, time
+import threading
 
 class Sound():
     hastaAdi = ""
     tts = ""
     folder = "tmp"
     file = "temp.mp3"
-    def __init__(self,hasta_adi):
+    def __init__(self, hasta_adi):
         print("Ses Kütüphanesi Yüklendi.")
         self.hastaAdi = hasta_adi
         self.tts = gTTS(self.hastaAdi, lang='tr')
         self.folder_exist()
+        t1 = threading.Thread(target=self.play_sound)
+        
         self.tts.save('./'+self.folder+'/'+self.file)
-        self.play_sound()
+        t1.start()
 
 
     def folder_exist(self):

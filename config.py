@@ -6,3 +6,4 @@ pencere_height = 720
 tam_ekran = False
 Host = '127.0.0.1'
 Port = 6000
+Buffer_limit = 1024
