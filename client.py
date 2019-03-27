@@ -1,5 +1,5 @@
 import socket
-sunucuyaGonderilecekMesaj = "Dt. Hasan YAVAŞ*Mustafa Sabri Oğuz*5*Uzm. Dt Aslı Dündar"
+sunucuyaGonderilecekMesaj = "Dt. Aslı ÇAKMAK*Mustafa Sandal*5*Uzm. Dt Aslı Dündar"
 istemciSoketi = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
 host = "127.0.0.1" 
 port = 6000 

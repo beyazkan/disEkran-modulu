@@ -30,15 +30,27 @@ class Graphic_Screen(Thread):
         while not done:
             if not self.q.empty():
                 self.dizi = self.q.get_nowait()
-                self.islem = True
+
             if self.dizi:
-                
-                if not len(self.doktor) >= 2:
+                if not self.doktor:
+                    self.doktor.append(self.dizi)
+                    self.islem = True
+                elif len(self.doktor) == 1:
                     if self.doktor[0][0] == self.dizi[0]:
                         self.doktor[0] = self.dizi
+                        self.islem = True
                     else:
-                        self.doktor[1] = self.dizi
-                    self.dizi = ""
+                        self.doktor.append(self.dizi)
+                        self.islem = True
+                elif self.doktor[0][0] == self.dizi[0]:
+                    self.doktor[0] = self.dizi
+                    self.islem = True
+                elif self.doktor[1][0] == self.dizi[0]:
+                    self.doktor[1] = self.dizi
+                    self.islem = True
+                else:
+                    pass
+                self.dizi = ""
 
                 print(self.doktor)
 
@@ -55,10 +67,15 @@ class Graphic_Screen(Thread):
                 self.First_Scene()
             elif len(self.doktor) == 2:
                 self.baslik_yazisi = upper("Ağız ve Çene Cerrahisi Kliniği")
-                self.hekim_adi = upper(self.doktor[1][0])
+                self.hekim_adi = upper(self.doktor[0][0])
                 self.hasta_bilgi_text = upper("Hasta")
-                self.hasta_sira_bilgi = self.doktor[1][2]
-                self.hasta_adi_bilgi = upper(self.doktor[1][1])
+                self.hasta_sira_bilgi = self.doktor[0][2]
+                self.hasta_adi_bilgi = upper(self.doktor[0][1])
+                self.baslik_yazisi2 = upper("Ağız ve Çene Cerrahisi Kliniği")
+                self.hekim_adi2 = upper(self.doktor[1][0])
+                self.hasta_bilgi_text2 = upper("Hasta")
+                self.hasta_sira_bilgi2 = self.doktor[1][2]
+                self.hasta_adi_bilgi2 = upper(self.doktor[1][1])
                 if self.islem:
                     sound_var = Sound(self.doktor[1][1])
                 self.Second_Scene()
@@ -98,6 +115,10 @@ class Graphic_Screen(Thread):
         self.hekim_text = self.Normal_font.render(self.hekim_adi, True, hex_to_rgb('#FFFFFF'))
         self.hasta_bilgi = self.Kucuk_font.render(self.hasta_bilgi_text, True, hex_to_rgb('#FFFFFF'))
         self.hasta_adi = self.Normal_font.render("({}) {}".format(self.hasta_sira_bilgi, self.hasta_adi_bilgi), True, hex_to_rgb('#000000'))
+        self.text2 = self.Buyuk_font.render(self.baslik_yazisi2, True, hex_to_rgb('#F44336'))
+        self.hekim_text2 = self.Normal_font.render(self.hekim_adi2, True, hex_to_rgb('#FFFFFF'))
+        self.hasta_bilgi2 = self.Kucuk_font.render(self.hasta_bilgi_text2, True, hex_to_rgb('#FFFFFF'))
+        self.hasta_adi2 = self.Normal_font.render("({}) {}".format(self.hasta_sira_bilgi2, self.hasta_adi_bilgi2), True, hex_to_rgb('#000000'))
         # Üst Doktor
         pygame.draw.rect(self.screen, hex_to_rgb('#1976D2'), pygame.Rect(0, 0, 1280, 150))
         pygame.draw.rect(self.screen, hex_to_rgb('#00BCD4'), pygame.Rect(0, 150, 180, 200))
@@ -112,10 +133,10 @@ class Graphic_Screen(Thread):
         pygame.draw.rect(self.screen, hex_to_rgb('#1976D2'), pygame.Rect(0, 350, 1280, 150))
         pygame.draw.rect(self.screen, hex_to_rgb('#00BCD4'), pygame.Rect(0, 500, 180, 250))
         pygame.draw.rect(self.screen, hex_to_rgb('#FFFFFF'), pygame.Rect(180, 500, 1100, 250))
-        self.screen.blit(self.text, (conf.pencere_width // 2 - self.text.get_width() // 2, 395 - self.text.get_height() // 2))
-        self.screen.blit(self.hekim_text, (conf.pencere_width // 2 - self.hekim_text.get_width() // 2, 460 - self.hekim_text.get_height() // 2))
-        self.screen.blit(self.hasta_bilgi, (85 - self.hasta_bilgi.get_width() // 2, 615 - self.hasta_bilgi.get_height() // 2))
-        self.screen.blit(self.hasta_adi, ((conf.pencere_width // 2) - (self.hasta_adi.get_width() // 2) + 85, 605 - self.hasta_adi.get_height() // 2))
+        self.screen.blit(self.text2, (conf.pencere_width // 2 - self.text2.get_width() // 2, 395 - self.text2.get_height() // 2))
+        self.screen.blit(self.hekim_text2, (conf.pencere_width // 2 - self.hekim_text2.get_width() // 2, 465 - self.hekim_text2.get_height() // 2))
+        self.screen.blit(self.hasta_bilgi2, (85 - self.hasta_bilgi2.get_width() // 2, 615 - self.hasta_bilgi2.get_height() // 2))
+        self.screen.blit(self.hasta_adi2, ((conf.pencere_width // 2) - (self.hasta_adi2.get_width() // 2) + 85, 605 - self.hasta_adi2.get_height() // 2))
 
     def close(self):
         return False

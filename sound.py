@@ -28,6 +28,7 @@ class Sound():
         uyari = pyglet.media.load('./asset/ses.wav')
         sound = pyglet.media.load('./'+self.folder+'/'+self.file, streaming = False)
         uyari.play()
+        time.sleep(1)
         sound.play()
         time.sleep(sound.duration)
         os.remove('./'+self.folder+'/'+self.file)
