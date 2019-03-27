@@ -14,7 +14,7 @@ class Sound():
         self.tts = gTTS(self.hastaAdi, lang='tr')
         self.folder_exist()
         t1 = threading.Thread(target=self.play_sound)
-        
+        t1.daemon = True
         self.tts.save('./'+self.folder+'/'+self.file)
         t1.start()
 
@@ -25,7 +25,9 @@ class Sound():
             print("{} adlı klasör oluşturuldu.".format(self.folder))
 
     def play_sound(self):
+        uyari = pyglet.media.load('./asset/ses.wav')
         sound = pyglet.media.load('./'+self.folder+'/'+self.file, streaming = False)
+        uyari.play()
         sound.play()
         time.sleep(sound.duration)
         os.remove('./'+self.folder+'/'+self.file)
