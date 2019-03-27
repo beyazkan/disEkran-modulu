@@ -1,20 +1,27 @@
 from gtts import gTTS
 import pyglet
+<<<<<<< HEAD
 import os
 import time
+=======
+import os, time
+import threading
+>>>>>>> eaeb6d6e662ac69d41024afae40e552ed9063dc1
 
 class Sound():
     hastaAdi = ""
     tts = ""
     folder = "tmp"
     file = "temp.mp3"
-    def __init__(self,hasta_adi):
+    def __init__(self, hasta_adi):
         print("Ses Kütüphanesi Yüklendi.")
         self.hastaAdi = hasta_adi
         self.tts = gTTS(self.hastaAdi, lang='tr')
         self.folder_exist()
+        t1 = threading.Thread(target=self.play_sound)
+        t1.daemon = True
         self.tts.save('./'+self.folder+'/'+self.file)
-        self.play_sound()
+        t1.start()
 
 
     def folder_exist(self):
@@ -23,7 +30,9 @@ class Sound():
             print("{} adlı klasör oluşturuldu.".format(self.folder))
 
     def play_sound(self):
+        uyari = pyglet.media.load('./asset/ses.wav')
         sound = pyglet.media.load('./'+self.folder+'/'+self.file, streaming = False)
+        uyari.play()
         sound.play()
         time.sleep(sound.duration)
         os.remove('./'+self.folder+'/'+self.file)
