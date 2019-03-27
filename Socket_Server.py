@@ -10,14 +10,9 @@ class Socket_Server(Thread):
     dizi = []
     hasta = []
 
-<<<<<<< HEAD
-    def __init__(self):
-        Thread.__init__(self)
-=======
     def __init__(self, q):
         Thread.__init__(self)
         self.q = q
->>>>>>> eaeb6d6e662ac69d41024afae40e552ed9063dc1
         print("Socket Server Sınıfı Yüklendi.")
 
     def run(self):
@@ -36,14 +31,8 @@ class Socket_Server(Thread):
                             self.done = True
                             break
                         self.dizi = str(self.paket).split("*")
-<<<<<<< HEAD
-                        sound_vari = sound.Sound(self.dizi[1])
-                        self.hasta.append(self.get_dizi())
-                        break;
-=======
                         self.q.put(self.get_dizi())
                         break
->>>>>>> eaeb6d6e662ac69d41024afae40e552ed9063dc1
 
     def stop(self):
         pass

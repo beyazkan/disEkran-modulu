@@ -8,12 +8,9 @@ def hex_to_rgb(hex):
     color = tuple(int(hex[i:i+2], 16) for i in (0, 2 ,4))
     return color
 
-<<<<<<< HEAD
-=======
 lcase_table = tuple(u'abcçdefgğhıijklmnoöprsştuüvyz')
 ucase_table = tuple(u'ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ')
 
->>>>>>> eaeb6d6e662ac69d41024afae40e552ed9063dc1
 def upper(data):
     data = data.replace('i',u'İ')
     data = data.replace(u'ı',u'I')

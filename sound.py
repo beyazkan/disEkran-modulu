@@ -1,12 +1,7 @@
 from gtts import gTTS
 import pyglet
-<<<<<<< HEAD
-import os
-import time
-=======
 import os, time
 import threading
->>>>>>> eaeb6d6e662ac69d41024afae40e552ed9063dc1
 
 class Sound():
     hastaAdi = ""
