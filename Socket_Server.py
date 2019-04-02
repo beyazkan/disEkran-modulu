@@ -18,7 +18,7 @@ class Socket_Server(Thread):
     def run(self):
         while not self.done:
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-                sock.bind((conf.Host, conf.Port))
+                sock.bind(('', conf.Port))
                 sock.listen()
                 print("Bağlantı Bekleniyor.")
                 connect, address = sock.accept()

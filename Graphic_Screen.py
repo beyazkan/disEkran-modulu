@@ -10,6 +10,7 @@ class Graphic_Screen(Thread):
     dizi = list()
     doktor = list()
     islem = False
+    doktor_sira = ""
 
     def __init__(self, q):
         Thread.__init__(self)
@@ -35,19 +36,24 @@ class Graphic_Screen(Thread):
                 if not self.doktor:
                     self.doktor.append(self.dizi)
                     self.islem = True
+                    self.doktor_sira = 0
                 elif len(self.doktor) == 1:
                     if self.doktor[0][0] == self.dizi[0]:
                         self.doktor[0] = self.dizi
                         self.islem = True
+                        self.doktor_sira = 0
                     else:
                         self.doktor.append(self.dizi)
                         self.islem = True
+                        self.doktor_sira = 1
                 elif self.doktor[0][0] == self.dizi[0]:
                     self.doktor[0] = self.dizi
                     self.islem = True
+                    self.doktor_sira = 0
                 elif self.doktor[1][0] == self.dizi[0]:
                     self.doktor[1] = self.dizi
                     self.islem = True
+                    self.doktor_sira = 1
                 else:
                     pass
                 self.dizi = ""
@@ -77,7 +83,7 @@ class Graphic_Screen(Thread):
                 self.hasta_sira_bilgi2 = self.doktor[1][2]
                 self.hasta_adi_bilgi2 = upper(self.doktor[1][1])
                 if self.islem:
-                    sound_var = Sound(self.doktor[1][1])
+                    sound_var = Sound(self.doktor[self.doktor_sira][1])
                 self.Second_Scene()
 
             for event in pygame.event.get():
@@ -90,7 +96,7 @@ class Graphic_Screen(Thread):
             clock.tick(60)
 
     def Intro_Scene(self):
-        logo = pygame.image.load('./asset/saglik_bakanligi.png')
+        logo = pygame.image.load('./asset/arma-logo.png')
         logo = pygame.transform.scale(logo, (conf.pencere_width, conf.pencere_height))
         self.screen.blit(logo, (0, 0))
 
