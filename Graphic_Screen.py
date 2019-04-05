@@ -12,9 +12,10 @@ class Graphic_Screen(Thread):
     islem = False
     doktor_sira = ""
 
-    def __init__(self, q):
+    def __init__(self, q, q_done):
         Thread.__init__(self)
         self.q = q
+        self.q_done = q_done
         self.cli_socket = Socket_Client()
 
     def run(self):
@@ -90,6 +91,7 @@ class Graphic_Screen(Thread):
                 if event.type == pygame.QUIT:
                     done = True
                     self.cli_socket.connect()
+                    self.q_done.put(True)
                     self.cli_socket.send()
 
             pygame.display.flip()

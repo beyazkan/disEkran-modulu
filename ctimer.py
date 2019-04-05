@@ -1,21 +1,25 @@
 import time
+from threading import *
+import queue
 
-class Timer():
-
-    done = false
+class CTimer(Thread):
     time_value = 0
-
-    def __init__(self):
+    
+    def __init__(self, q_time, q_done):
+        Thread.__init__(self)
+        self.q_time = q_time
+        self.q_done = q_done
         print("Timer Sınıf Yüklendi.")
     
-    def start(self):
+    def run(self):
         print("Timer Başlatıldı.")
-        while not done:
-            time_value += 1
+        while not self.q_done.get():
+            self.time_value += 1
+            self.q_time = self.time_value
             time.sleep(1)
 
     def stop(self):
-        self.done = True
+        self.q_done.put(True)
         print("Timer Durduruldu.")
 
     def get_timer(self):

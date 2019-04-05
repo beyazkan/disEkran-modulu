@@ -10,9 +10,10 @@ class Socket_Server(Thread):
     dizi = []
     hasta = []
 
-    def __init__(self, q):
+    def __init__(self, q, q_done):
         Thread.__init__(self)
         self.q = q
+        self.q_done = q_done
         print("Socket Server Sınıfı Yüklendi.")
 
     def run(self):
@@ -25,6 +26,7 @@ class Socket_Server(Thread):
                 with connect:
                     print("Bağlanan Adres: ", address)
                     while True:
+                        connect.send("Trtek Sunucusuna Bağladınız.".encode())
                         data = connect.recv(conf.Buffer_limit)
                         self.paket = data.decode('utf-8')
                         if self.paket == "kapat":
